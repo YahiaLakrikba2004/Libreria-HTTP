@@ -40,13 +40,19 @@
         </div>
       </div>
     </header>
-    <div class="container" id="libreria"></div>
+    <div
+      class="container"
+      id="libreria"
+      style="display: flex; flex-wrap: wrap"
+    ></div>
     <div class="container mt-5 mb-5" id="carrello">
       <h2 class="text-center mb-4">
         Il Tuo Carrello
         <span id="badge-carrello" class="badge bg-primary rounded-pill"></span>
       </h2>
-      <ul class="list-group mb-4" id="lista-carrello"></ul>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <ul class="list-group" id="lista-carrello"></ul>
+      </div>
       <button class="btn btn-danger mt-3" id="svuota-carrello">
         Svuota Carrello
       </button>
@@ -65,8 +71,6 @@
         .then(libri => {
           sessionStorage.setItem('libri', JSON.stringify(libri))
           const libreria = document.getElementById('libreria')
-          let row = document.createElement('div')
-          row.className = 'row'
           libri.forEach((libro, index) => {
             const col = document.createElement('div')
             col.className = 'col-md-3 col-sm-12 mb-4'
@@ -82,16 +86,8 @@
                   </div>
               </div>`
 
-            row.appendChild(col)
-            if ((index + 1) % 4 === 0) {
-              libreria.appendChild(row)
-              row = document.createElement('div')
-              row.className = 'row'
-            }
+            libreria.appendChild(col)
           })
-          if (row.hasChildNodes()) {
-            libreria.appendChild(row)
-          }
 
           // Acquista button
           document.querySelectorAll('.acquista').forEach(button => {
